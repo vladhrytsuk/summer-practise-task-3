@@ -17,12 +17,12 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class CarController
+public class MainController
 {
     @Autowired
     private CarService carService;
 
-    private static final Logger logger = LoggerFactory.getLogger(CarController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String MainIndex()
