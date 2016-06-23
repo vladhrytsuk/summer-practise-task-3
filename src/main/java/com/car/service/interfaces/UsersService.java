@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UsersService extends UserDetailsService
+public interface UsersService /*extends UserDetailsService*/
 {
     Users getUser(Long user_id);
     Long addUser(Users users);

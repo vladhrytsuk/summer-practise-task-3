@@ -6,6 +6,7 @@ import com.car.service.interfaces.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 @Service
@@ -15,27 +16,33 @@ public class RolesServiceImpl implements RolesService
     private RolesDAO rolesDAO;
 
     @Override
-    public Roles addRole(Roles roles) {
+    public Roles addRole(Roles roles)
+    {
+        return rolesDAO.save(roles);
+    }
+
+    @Override
+    public Roles getRole(Long role_id)
+    {
+        Roles roles = new Roles();
+        return roles;
+    }
+
+    @Override
+    public List<Roles> getAllRoles()
+    {
         return null;
     }
 
     @Override
-    public Roles getRole(Long role_id) {
-        return null;
-    }
-
-    @Override
-    public List<Roles> getAllRoles() {
-        return null;
-    }
-
-    @Override
-    public void deleteRole(Long role_id) {
+    public void deleteRole(Long role_id)
+    {
 
     }
 
     @Override
-    public void setRoleUser(Long user_id) {
+    public void setRoleUser(Long user_id)
+    {
 
     }
 }

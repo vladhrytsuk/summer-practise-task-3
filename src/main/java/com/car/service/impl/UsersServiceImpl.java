@@ -59,8 +59,8 @@ public class UsersServiceImpl implements UsersService
         return null;
     }
 
-    @Override
+/*    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return null;
-    }
+    }*/
 }

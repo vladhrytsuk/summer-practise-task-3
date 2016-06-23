@@ -31,9 +31,9 @@ public class CarServiceImpl implements CarService
 
     @Transactional
     @Override
-    public Car deleteCar(Long id)
+    public Car deleteCar(Long car_id)
     {
-        Car deletedCar = findById(id);
+        Car deletedCar = findById(car_id);
         carDAO.delete(deletedCar);
         return deletedCar;
     }

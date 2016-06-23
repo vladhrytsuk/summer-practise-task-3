@@ -13,7 +13,7 @@ public class Users
     @Id
     @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long user_id;
+    private Long user_id;
 
     @NotEmpty
     @Column(name="login")
@@ -37,8 +37,8 @@ public class Users
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "roles_has_users", joinColumns = {
-            @JoinColumn(name = "users_user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "roles_role_id") })
+            @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private List<Roles> roleList;
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -64,11 +64,11 @@ public class Users
         this.ordersList = ordersList;
     }
 
-    public long getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
 

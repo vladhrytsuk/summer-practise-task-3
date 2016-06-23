@@ -35,13 +35,13 @@ public class Car
     private int miles;
 
     @ManyToOne
-    @JoinColumn(name = "cars_car_id")
+    @JoinColumn(name = "user_id")
     private Users users;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "orders_has_cars", joinColumns = {
-            @JoinColumn(name = "cars_car_id") },
-            inverseJoinColumns = { @JoinColumn(name = "orders_order_id") })
+            @JoinColumn(name = "car_id") },
+            inverseJoinColumns = { @JoinColumn(name = "order_id") })
     private List<Orders> ordersList;
 
     public Car()

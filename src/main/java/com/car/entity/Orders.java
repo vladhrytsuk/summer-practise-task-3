@@ -8,9 +8,9 @@ import java.util.List;
 public class Orders
 {
     @Id
-    @Column(name = "orders_id", nullable = false)
+    @Column(name = "order_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long orders_id;
+    private Long order_id;
 
     @Column(name = "breaking")
     private String breaking;
@@ -19,13 +19,13 @@ public class Orders
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "orders_order_id")
+    @JoinColumn(name = "user_id")
     private Users users;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "orders_has_cars", joinColumns = {
-            @JoinColumn(name = "orders_order_id") },
-            inverseJoinColumns = { @JoinColumn(name = "cars_car_id") })
+            @JoinColumn(name = "order_id") },
+            inverseJoinColumns = { @JoinColumn(name = "car_id") })
     private List<Car> carList;
 
     public Orders()
@@ -41,14 +41,14 @@ public class Orders
         this.carList = carList;
     }
 
-    public long getOrders_id()
+    public Long getOrder_id()
     {
-        return orders_id;
+        return order_id;
     }
 
-    public void setOrders_id(long orders_id)
+    public void setOrder_id(Long order_id)
     {
-        this.orders_id = orders_id;
+        this.order_id = order_id;
     }
 
     public String getBreaking()
@@ -95,7 +95,7 @@ public class Orders
     public String toString()
     {
         return "Orders{" +
-                "orders_id=" + orders_id +
+                "order_id=" + order_id +
                 ", breaking='" + breaking + '\'' +
                 ", status='" + status + '\'' +
                 ", users=" + users +
