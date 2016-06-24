@@ -15,7 +15,7 @@ public class Roles
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "roles_has_users", joinColumns = {
             @JoinColumn(name = "role_id") },
             inverseJoinColumns = { @JoinColumn(name = "user_id") })

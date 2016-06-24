@@ -87,7 +87,7 @@ function SaveRow(tableID, data)
 {
     var saveRow = document.getElementById(tableID).insertRow(byfIndex);
 
-    addCol(saveRow, 0, data.id);
+    addCol(saveRow, 0, data.car_id);
     addCol(saveRow, 1, data.mark);
     addCol(saveRow, 2, data.color);
     addCol(saveRow, 3, data.vin);
@@ -105,7 +105,7 @@ function AddRow(tableID, data)
     var newRow = tableElem.insertRow(-1);
     newRow.className = "text-center";
 
-    addCol(newRow, 0, data.id);
+    addCol(newRow, 0, data.car_id);
     addCol(newRow, 1, data.mark);
     addCol(newRow, 2, data.color);
     addCol(newRow, 3, data.vin);
@@ -128,7 +128,7 @@ function addCol(newRow, columnNum, value)
         if (x == true)
         {
             var index = this.parentNode.parentNode.rowIndex;
-            var idCar = cararray[index - 1].id;
+            var idCar = cararray[index - 1].car_id;
             $.ajax(
                 {
                     url: '/list/delete',
@@ -138,7 +138,7 @@ function addCol(newRow, columnNum, value)
                     success: function(data)
                     {
                             DeleteRow('CarDataTable', index);
-                            alert('Удаление успешно!\n ID: ' + cararray[index - 1].id);
+                            alert('Удаление успешно!\n ID: ' + cararray[index - 1].car_id);
                             cararray.splice(index - 1, 1);
                     },
                     error: function(data)
@@ -156,7 +156,7 @@ function addCol(newRow, columnNum, value)
     {
         var index = this.parentNode.parentNode.rowIndex;
         byfIndex = this.parentNode.parentNode.rowIndex;;
-        byf = {'id': cararray[index - 1].id, 'mark': cararray[index - 1].mark, 'color': cararray[index - 1].color, 'vin': cararray[index - 1].vin, 'miles': cararray[index - 1].miles};
+        byf = {'car_id': cararray[index - 1].car_id, 'mark': cararray[index - 1].mark, 'color': cararray[index - 1].color, 'vin': cararray[index - 1].vin, 'miles': cararray[index - 1].miles};
         EditRow('CarDataTable', index, byf);
     });
 
@@ -193,7 +193,7 @@ function EditRow(tableID, index, byf)
     $(EditInputTextMILES).attr({'class':'span1', 'type':'text', 'id':'saveMiles', 'value':byf.miles});
 
 
-    editCol(oldRow, 0, byf.id);
+    editCol(oldRow, 0, byf.car_id);
     editCol(oldRow, 1, EditInputTextMARK);
     editCol(oldRow, 2, EditInputTextCOLOR);
     editCol(oldRow, 3, EditInputTextVIN);
@@ -218,12 +218,12 @@ function editCol(oldRow, columnNum, value)
         x = confirm('Вы действительно хотите редактировать данный элемент?');
         if (x == true)
         {
-            var id = byf.id;
+            var car_id = byf.car_id;
             var mark = document.getElementById('saveMark').value;
             var color = document.getElementById('saveColor').value;
             var vin = document.getElementById('saveVin').value;
             var miles = document.getElementById('saveMiles').value;
-            var edit = {'id': id, 'mark': mark, 'color': color, 'vin': vin, 'miles': miles};
+            var edit = {'car_id': car_id, 'mark': mark, 'color': color, 'vin': vin, 'miles': miles};
             EditToTable(edit);
         }
     });
@@ -235,7 +235,7 @@ function editCol(oldRow, columnNum, value)
     {
         var cancleRow = document.getElementById('CarDataTable').insertRow(byfIndex);
 
-        addCol(cancleRow, 0, byf.id);
+        addCol(cancleRow, 0, byf.car_id);
         addCol(cancleRow, 1, byf.mark);
         addCol(cancleRow, 2, byf.color);
         addCol(cancleRow, 3, byf.vin);
@@ -257,7 +257,7 @@ function editCol(oldRow, columnNum, value)
         col.appendChild(CancelBotton);
     }
 
-    else if (value == byf.id)
+    else if (value == byf.car_id)
     {
         col.innerHTML = value;
     }

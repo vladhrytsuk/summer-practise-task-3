@@ -11,4 +11,5 @@ public interface RolesService
     List<Roles> getAllRoles();
     void deleteRole(Long role_id);
     void setRoleUser(Long user_id);
+    Roles findById(Long role_id);
 }

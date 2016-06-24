@@ -24,8 +24,9 @@ public class CarServiceImpl implements CarService
     @Override
     public Car saveCar(CarDTO carDTO)
     {
-        Car car = carFactoryDTO.SerializerCar(carDTO);
-        car = carDAO.save(car);
+        Car carSave = carFactoryDTO.SerializerCar(carDTO);
+        carDAO.save(carSave);
+        Car car = carFactoryDTO.setIdCar(carSave, carDAO.save(carSave).getCar_id());
         return car;
     }
 

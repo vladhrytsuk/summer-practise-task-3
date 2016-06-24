@@ -1,5 +1,6 @@
 package com.car.controlles;
 
+import com.car.dao.interfaces.CarDAO;
 import com.car.dto.CarDTO;
 import com.car.entity.Car;
 import com.car.service.interfaces.CarService;
@@ -57,10 +58,10 @@ public class MainController
 
     @ResponseBody
     @RequestMapping(value = "/list/delete", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public Car deleteCar(@RequestBody Long id)
+    public Car deleteCar(@RequestBody Long car_id)
     {
         logger.debug("DELETE controller");
-        return carService.deleteCar(id);
+        return carService.deleteCar(car_id);
     }
 
     @ResponseBody

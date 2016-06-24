@@ -10,8 +10,8 @@ import java.util.List;
 public interface UsersService /*extends UserDetailsService*/
 {
     Users getUser(Long user_id);
-    Long addUser(Users users);
-    Long deleteUser(Long user_id);
+    Users addUser(Users users);
+    void deleteUser(Long user_id);
     List<Orders> getUserOrders(Long user_id);
     List<Car> getUserCars(Long user_id);
     Users findUserById(Long user_id);

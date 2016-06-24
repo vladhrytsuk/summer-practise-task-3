@@ -35,17 +35,17 @@ public class Users
     @Column(name="lastName")
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "roles_has_users", joinColumns = {
             @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private List<Roles> roleList;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Car> carList = new ArrayList<Car>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    private List<Car> carList = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Orders> ordersList = new ArrayList<Orders>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    private List<Orders> ordersList = new ArrayList<>();
 
     public Users()
     {

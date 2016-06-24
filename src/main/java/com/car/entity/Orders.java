@@ -22,7 +22,7 @@ public class Orders
     @JoinColumn(name = "user_id")
     private Users users;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "orders_has_cars", joinColumns = {
             @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "car_id") })
