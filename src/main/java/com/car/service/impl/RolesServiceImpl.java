@@ -5,13 +5,14 @@ import com.car.entity.Roles;
 import com.car.entity.Users;
 import com.car.service.interfaces.RolesService;
 import com.car.service.interfaces.UsersService;
+import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.awt.print.Book;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -22,6 +23,9 @@ public class RolesServiceImpl implements RolesService
 
     @Autowired
     private UsersService usersService;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Transactional
     @Override
@@ -55,14 +59,19 @@ public class RolesServiceImpl implements RolesService
 
     @Transactional
     @Override
-    public void setRoleUser(Long user_id)
+    public void setRoleUser(Long role_id, Long user_id)
     {
-        Users users =  usersService.findUserById(user_id);
+        Query query = em.createQuery("SELECT r FROM roles_has_users r WHERE r.user_id = :user_id and r.role_id = :role_id");
+        query.setParameter("role_id", role_id);
+        query.setParameter("user_id", user_id);
+        query.executeUpdate();
+        //Users users =  usersService.findUserById(user_id);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Roles findById(Long role_id) {
+    public Roles findById(Long role_id)
+    {
         return rolesDAO.findOne(role_id);
     }
 }

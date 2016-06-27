@@ -16,20 +16,26 @@ public class Roles
     private String role;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "roles_has_users",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") }
+    )
+    private List<Users> userList;
+
+/*    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "roles_has_users", joinColumns = {
             @JoinColumn(name = "role_id") },
             inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    private List<Users> userList;
+    private List<Users> userList;*/
 
     public Roles()
     {
 
     }
 
-    public Roles(String role, List<Users> userList)
+    public Roles(String role)
     {
         this.role = role;
-        this.userList = userList;
     }
 
     public Long getRole_id()

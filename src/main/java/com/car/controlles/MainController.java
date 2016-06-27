@@ -1,9 +1,9 @@
 package com.car.controlles;
 
-import com.car.dao.interfaces.CarDAO;
 import com.car.dto.CarDTO;
 import com.car.entity.Car;
 import com.car.service.interfaces.CarService;
+import com.car.service.interfaces.RolesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +58,11 @@ public class MainController
 
     @ResponseBody
     @RequestMapping(value = "/list/delete", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public Car deleteCar(@RequestBody Long car_id)
+    public Car deleteCar(@RequestBody int car_id)
     {
+        Long obCar_id = new Long(car_id);
         logger.debug("DELETE controller");
-        return carService.deleteCar(car_id);
+        return carService.deleteCar(obCar_id);
     }
 
     @ResponseBody

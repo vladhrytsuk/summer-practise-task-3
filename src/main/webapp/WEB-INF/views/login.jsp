@@ -31,12 +31,27 @@
                 <button type="button" id = "loginIn" class="btn btn-primary">Login</button>
             </div>
             <div class="col-sm-offset-3 col-sm-3">
-                <button type="button" id = "cancel" class="btn btn-primary" onclick="location.href='/registration'">Registration</button>
+                <button type="button" id = "registration" class="btn btn-primary">Registration</button>
             </div>
         </div>
     </form>
 </div>
 
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<script type="text/javascript" src="/resources/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/resources/js/authorization.js"></script>
+<script type="text/javascript" src="/resources/js/validate.js"></script>
 <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $("#loginIn").click(function ()
+    {
+        Authorization();
+    });
+
+    $("#registration").click(function ()
+    {
+        location.href='http://localhost:8080/registration';
+    });
+</script>
 </body>
 </html>

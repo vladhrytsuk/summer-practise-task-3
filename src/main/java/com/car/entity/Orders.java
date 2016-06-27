@@ -24,8 +24,8 @@ public class Orders
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "orders_has_cars", joinColumns = {
-            @JoinColumn(name = "order_id") },
-            inverseJoinColumns = { @JoinColumn(name = "car_id") })
+            @JoinColumn(name = "car_id") },
+            inverseJoinColumns = { @JoinColumn(name = "order_id") })
     private List<Car> carList;
 
     public Orders()

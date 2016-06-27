@@ -36,9 +36,10 @@ public class Users
     private String lastName;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "roles_has_users", joinColumns = {
-            @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    @JoinTable(name = "roles_has_users",
+            joinColumns = { @JoinColumn(name = "role_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
     private List<Roles> roleList;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
@@ -50,6 +51,15 @@ public class Users
     public Users()
     {
 
+    }
+
+    public Users(String login, String password, String email, String firstName, String lastName)
+    {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Users(String login, String password, String email, String firstName, String lastName, List<Roles> roleList, List<Car> carList, List<Orders> ordersList)
