@@ -2,10 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
-    <script type="text/javascript" src="/resources/js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
     <title>LOGIN</title>
 </head>
 <body>
@@ -46,32 +43,31 @@
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
                 <button type="submit" class="btn btn-primary">Login</button>
+                <button type="button" id = "registration" class="btn btn-primary">Registration</button>
             </div>
             <input type="hidden" name="${_csrf.parameterName}"
                    value="${_csrf.token}" />
         </div>
     </form>
-
-    <div class="form-group">
+<%--    <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
             <button type="button" id = "registration" class="btn btn-primary">Registration</button>
         </div>
-    </div>
+    </div>--%>
 </div>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
-/*    $("#loginIn").click(function ()
-    {
-        /!*Authorization();*!/
-    });*/
+    /*    $("#loginIn").click(function ()
+     {
+     /!*Authorization();*!/
+     });*/
 
     $("#registration").click(function ()
     {
         location.href='http://localhost:8080/registration';
     });
 </script>
-
-
 </body>
 </html>

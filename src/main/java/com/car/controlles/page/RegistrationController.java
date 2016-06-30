@@ -30,7 +30,7 @@ public class RegistrationController
     }
 
     @ResponseBody
-    @RequestMapping(value = "/makeRegistration", method = RequestMethod.POST)
+    @RequestMapping(value = "/makeRegistration", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public Users makeRegistrationPage(@RequestBody UserDTO userDTO) throws ObjectAlreadyExistsException
     {
         logger.debug("makeRegistration controller");

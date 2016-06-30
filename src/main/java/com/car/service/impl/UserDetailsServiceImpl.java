@@ -1,11 +1,7 @@
 package com.car.service.impl;
 
-
-import com.car.dao.interfaces.RolesDAO;
 import com.car.dao.interfaces.UsersDAO;
-import com.car.entity.Roles;
 import com.car.entity.Users;
-import com.car.service.interfaces.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -24,13 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService
 {
 
     @Autowired
-    private RolesDAO rolesDAO;
-
-    @Autowired
     private UsersDAO usersDAO;
-
-   /* @Autowired
-    private EntityManager entityManager;*/
 
     @Transactional(readOnly = true)
     @Override

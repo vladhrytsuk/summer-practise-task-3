@@ -1,7 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/registration.css"/>">
     <title>Registration</title>
 </head>
 <body>
@@ -61,6 +63,8 @@
                         </div>
                         <button type="button" id = "register" class="btn btn-info btn-block btn-primary">Register</button>
                         <button type="button" id = "cancel" class="btn btn-info btn-block btn-primary">Cancel</button>
+                        <input type="hidden" name="${_csrf.parameterName}"
+                               value="${_csrf.token}" />
                     </form>
                 </div>
             </div>
@@ -69,10 +73,10 @@
 </div>
 
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
-<script type="text/javascript" src="/resources/js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="/resources/js/registration.js"></script>
-<script type="text/javascript" src="/resources/js/validate.js"></script>
-<script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/registration.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/validate.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
     $("#register").click(function ()
     {

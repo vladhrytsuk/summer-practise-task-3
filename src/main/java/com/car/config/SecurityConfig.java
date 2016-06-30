@@ -1,7 +1,5 @@
 package com.car.config;
 
-/*import com.car.service.impl.UserDetailsServiceImpl;*/
-import com.car.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,13 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception
     {
         auth.userDetailsService(userDetailsService);
-  /*      auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select u.username, u.password " +
-                        "from users u" +
-                        "where u.username=?")
-                .authoritiesByUsernameQuery("select username,roles from roles role" +
-                        "inner join role.users users " +
-                        "where users.username=?");*/
     }
 
     @Override
@@ -42,9 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/authorization", "/login", "/registration", "/makeRegistration", "/cars").permitAll().anyRequest().authenticated()
-                .antMatchers("/resources/**", "/**").permitAll()
-                .antMatchers("/mechanic*").access("hasRole('ROLE_MECHANIC') and hasRole('ROLE_USER')")
+                    .antMatchers("/resources/**", "/**").permitAll()
+                    .antMatchers("/" ,"/registration", "/makeRegistration").permitAll()
+                    .antMatchers("/mechanic*").access("hasRole('ROLE_MECHANIC') and hasRole('ROLE_USER')")
                     .antMatchers("/user*").access("hasRole('ROLE_USER')")
                     .anyRequest().authenticated()
                     .and()
@@ -53,9 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                     .loginPage("/authorization")
                     .loginProcessingUrl("/j_spring_security_check")
                     .defaultSuccessUrl("/login")
-                    .failureUrl("/authorization?error")
-                    .usernameParameter("f_username")
-                    .passwordParameter("f_password")
+                    .failureUrl("/authorization?error=true")
+                    .usernameParameter("f_username").passwordParameter("f_password")
                     .and()
                 .logout()
                     .permitAll()
@@ -63,9 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                     .logoutSuccessUrl("/authorization?logout")
                     .invalidateHttpSession(true)
                     .and()
-                .exceptionHandling()
-                    .accessDeniedPage("/403")
+                .exceptionHandling().accessDeniedPage("/403")
                     .and()
-                .csrf();
+                .csrf().disable();
     }
 }
