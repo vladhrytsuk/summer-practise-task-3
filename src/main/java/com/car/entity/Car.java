@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,9 +14,9 @@ import java.util.List;
 public class Car
 {
     @Id
-    @Column(name = "car_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long car_id;
+    @Column(name = "carId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long carId;
 
     @Column(name = "mark")
     @NotEmpty
@@ -35,35 +36,45 @@ public class Car
     private int miles;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users users;
+    @JoinColumn(name = "userId")
+    private Users usersCar;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "orders_has_cars", joinColumns = {
-            @JoinColumn(name = "order_id") },
-            inverseJoinColumns = { @JoinColumn(name = "car_id") })
-    private List<Orders> ordersList;
+            @JoinColumn(name = "orderId") },
+            inverseJoinColumns = { @JoinColumn(name = "carId") })
+    private List<Orders> ordersList = new ArrayList<>();
 
     public Car()
     {
 
     }
 
-    public Car(String mark, String color, int vin, int miles, Users users, List<Orders> ordersList) {
+    public Car(Long carId, String mark, String color, int vin, int miles) {
+        this.carId = carId;
         this.mark = mark;
         this.color = color;
         this.vin = vin;
         this.miles = miles;
-        this.users = users;
+    }
+
+    public Car(String mark, String color, int vin, int miles, Users usersCar, List<Orders> ordersList) {
+        this.mark = mark;
+        this.color = color;
+        this.vin = vin;
+        this.miles = miles;
+        this.usersCar = usersCar;
         this.ordersList = ordersList;
     }
 
-    public Long getCar_id() {
-        return car_id;
+    public Long getCarId()
+    {
+        return carId;
     }
 
-    public void setCar_id(Long car_id) {
-        this.car_id = car_id;
+    public void setCarId(Long carId)
+    {
+        this.carId = carId;
     }
 
     public String getMark()
@@ -106,14 +117,14 @@ public class Car
         this.miles = miles;
     }
 
-    public Users getUsers()
+    public Users getUsersCar()
     {
-        return users;
+        return usersCar;
     }
 
-    public void setUsers(Users users)
+    public void setUsersCar(Users usersCar)
     {
-        this.users = users;
+        this.usersCar = usersCar;
     }
 
     public List<Orders> getOrdersList()
@@ -126,16 +137,4 @@ public class Car
         this.ordersList = ordersList;
     }
 
-    @Override
-    public String toString() {
-        return "Car{" +
-                "car_id=" + car_id +
-                ", mark='" + mark + '\'' +
-                ", color='" + color + '\'' +
-                ", vin=" + vin +
-                ", miles=" + miles +
-                ", users=" + users +
-                ", ordersList=" + ordersList +
-                '}';
-    }
 }

@@ -8,44 +8,39 @@ import java.util.List;
 public class Roles
 {
     @Id
-    @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long role_id;
+    @Column(name = "roleId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long roleId;
 
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     private String role;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "roles_has_users",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id") }
-    )
+    @ManyToMany(mappedBy = "roleList", cascade = CascadeType.ALL)
     private List<Users> userList;
-
-/*    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "roles_has_users", joinColumns = {
-            @JoinColumn(name = "role_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") })
-    private List<Users> userList;*/
 
     public Roles()
     {
 
     }
 
-    public Roles(String role)
-    {
+    public Roles(String role) {
         this.role = role;
     }
 
-    public Long getRole_id()
+    public Roles(String role, List<Users> userList)
     {
-        return role_id;
+        this.role = role;
+        this.userList = userList;
     }
 
-    public void setRole_id(Long role_id)
+    public Long getRoleId()
     {
-        this.role_id = role_id;
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId)
+    {
+        this.roleId = roleId;
     }
 
     public String getRole()
@@ -66,14 +61,5 @@ public class Roles
     public void setUserList(List<Users> userList)
     {
         this.userList = userList;
-    }
-
-    @Override
-    public String toString() {
-        return "Roles{" +
-                "role_id=" + role_id +
-                ", role='" + role + '\'' +
-                ", userList=" + userList +
-                '}';
     }
 }

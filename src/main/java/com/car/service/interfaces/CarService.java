@@ -1,15 +1,17 @@
 package com.car.service.interfaces;
 
-import com.car.dto.CarDTO;
 import com.car.entity.Car;
+import com.car.entity.Users;
 
 import java.util.List;
 
 public interface CarService
 {
-    Car saveCar(CarDTO carDTO);
-    Car deleteCar(Long car_id);
+    Car addCar(Car car, Users user);
+    Car deleteCar(Long carId);
     Car updateCar(Car car);
-    Car findById(Long car_id);
+    Car findById(Long carId);
+    Car getCar(Long carId);
+    List<Car> getCarUser(Long userId);
     List<Car> findAll();
 }

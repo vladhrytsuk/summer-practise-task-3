@@ -1,16 +1,15 @@
-package com.car.controlles;
+package com.car.controlles.page;
 
-import com.car.dto.UserDTO;
-import com.car.dto.UserFactoryDTO;
+import com.car.dto.factory.interfaces.FactoryDTO;
+import com.car.dto.to.UserDTO;
 import com.car.entity.Users;
+import com.car.service.exception.ObjectAlreadyExistsException;
 import com.car.service.interfaces.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Controller
 public class RegistrationController
@@ -19,9 +18,9 @@ public class RegistrationController
     private UsersService usersService;
 
     @Autowired
-    private UserFactoryDTO userFactoryDTO;
+    private FactoryDTO factoryDTO;
 
-    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registrationPage()
@@ -32,10 +31,10 @@ public class RegistrationController
 
     @ResponseBody
     @RequestMapping(value = "/makeRegistration", method = RequestMethod.POST)
-    public Users makeRegistrationPage(@RequestBody UserDTO userDTO)
+    public Users makeRegistrationPage(@RequestBody UserDTO userDTO) throws ObjectAlreadyExistsException
     {
         logger.debug("makeRegistration controller");
-        return usersService.addUser(userFactoryDTO.CutCode(userDTO), userFactoryDTO.CutUser(userDTO));
+        return usersService.addUser(factoryDTO.UsersOutDTO(userDTO), factoryDTO.CutSecretCode(userDTO));
     }
 
 

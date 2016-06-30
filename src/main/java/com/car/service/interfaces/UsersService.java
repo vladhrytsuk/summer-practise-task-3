@@ -3,19 +3,19 @@ package com.car.service.interfaces;
 import com.car.entity.Car;
 import com.car.entity.Orders;
 import com.car.entity.Users;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.car.service.exception.ObjectAlreadyExistsException;
 
 import java.util.List;
 
-public interface UsersService /*extends UserDetailsService*/
+public interface UsersService
 {
-    Users getUser(Long user_id);
-    Users addUser(Users users, String secretCode);
-    void deleteUser(Long user_id);
-    List<Orders> getUserOrders(Long user_id);
-    List<Car> getUserCars(Long user_id);
-    Users findUserById(Long user_id);
-    boolean findUserByLogin(String login);
+    Users getUser(Long userId);
+    Users addUser(Users users, String secretCode) throws ObjectAlreadyExistsException;
+    void deleteUser(Long userId);
+    List<Orders> getUserOrders(Long userId);
+    List<Car> getUserCars(Long userId);
+    Users findUserById(Long userId);
+    Users findByUsername(String username);
     List<Users> getAllUsers();
 
 }

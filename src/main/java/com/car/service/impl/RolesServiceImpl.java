@@ -34,11 +34,11 @@ public class RolesServiceImpl implements RolesService
         return rolesDAO.save(roles);
     }
 
-    @Transactional
+    @Transactional (readOnly = true)
     @Override
-    public Roles getRole(Long role_id)
+    public Roles getRole(Long roleId)
     {
-        Roles roles = findById(role_id);
+        Roles roles = findById(roleId);
         return roles;
     }
 
@@ -51,27 +51,27 @@ public class RolesServiceImpl implements RolesService
 
     @Transactional
     @Override
-    public void deleteRole(Long role_id)
+    public void deleteRole(Long roleId)
     {
-        Roles deletedRole = findById(role_id);
+        Roles deletedRole = findById(roleId);
         rolesDAO.delete(deletedRole);
     }
 
     @Transactional
     @Override
-    public void setRoleUser(Long role_id, Long user_id)
+    public void setRoleUser(Long roleId, Long userId)
     {
-        Query query = em.createQuery("SELECT r FROM roles_has_users r WHERE r.user_id = :user_id and r.role_id = :role_id");
-        query.setParameter("role_id", role_id);
-        query.setParameter("user_id", user_id);
+        Query query = em.createQuery("SELECT r FROM roles_has_users r WHERE r.userId = :userId and r.roleId = :roleId");
+        query.setParameter("roleId", roleId);
+        query.setParameter("userId", userId);
         query.executeUpdate();
         //Users users =  usersService.findUserById(user_id);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Roles findById(Long role_id)
+    public Roles findById(Long roleId)
     {
-        return rolesDAO.findOne(role_id);
+        return rolesDAO.findOne(roleId);
     }
 }

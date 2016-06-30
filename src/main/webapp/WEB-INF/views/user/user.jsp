@@ -9,12 +9,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-            <a href="/login" >Logout</a>
+            <a href="/login?logout" >Logout</a>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">${login}</h3>
+                    <h3 class="panel-title">${username}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -25,10 +25,6 @@
                                 <tr>
                                     <th>Roles:</th>
                                     <td>${role}</td>
-                                </tr>
-                                <tr>
-                                    <th>Login:</th>
-                                    <td>${login}</td>
                                 </tr>
                                 <tr>
                                     <th>First Name:</th>
@@ -46,8 +42,8 @@
                                 </tbody>
                             </table>
 
-                            <a href="/list" class="btn btn-primary">Add Cars</a>
-                            <a href="/list" class="btn btn-primary">Show orders</a>
+                            <a href="/cars" class="btn btn-primary">Add Cars</a>
+                            <a href="/cars" class="btn btn-primary">Show orders</a>
                         </div>
                     </div>
                 </div>

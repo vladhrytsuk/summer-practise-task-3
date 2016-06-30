@@ -1,15 +1,17 @@
 package com.car.service.interfaces;
 
 import com.car.entity.Orders;
+import com.car.entity.Users;
 
 import java.util.List;
 
 public interface OrdersService
 {
-    Orders addOrders(Orders orders);
-    Orders deleteOrders(Long order_id);
+    Orders addOrders(Orders orders, Users user);
+    Orders deleteOrders(Long orderId);
     Orders updateOrders(Orders orders);
-    Orders getOrders(Long order_id);
-    Orders findById(Long order_id);
+    Orders getOrders(Long orderId);
+    Orders findById(Long orderId);
+    List<Orders> getOrdersUsers(Long userId);
     List<Orders> findAll();
 }

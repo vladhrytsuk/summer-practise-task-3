@@ -5,8 +5,8 @@
 </head>
 <body>
 <h2 align="center">Project CarList</h2>
-<h3 align="center">Hello user, to view a list of machines, please click the following <a href="/list">link</a></h3>
+<h3 align="center">Hello user, to view a list of machines, please click the following <a href="/cars">link</a></h3>
 <br><br><br><br>
-<h2 align="center">TestControllers <a href="/login">LOGIN</a></h2>
+<h2 align="center">TestControllers <a href="/authorization">LOGIN</a></h2>
 </body>
 </html>

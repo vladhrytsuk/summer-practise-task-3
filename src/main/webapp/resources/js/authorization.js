@@ -1,29 +1,35 @@
 function Authorization()
 {
-    var login = $('#login').val();
+    var username = $('#username').val();
     var password = $('#password').val();
 
     $.ajax(
         {
-            url: '/authorization',
+            url: '/login',
             type: 'POST',
             contentType : 'application/json',
             data: JSON.stringify(
                 {
-                    'login': login,
-                    'password': password,
+                    'login': username,
+                    'password': password
                 }),
             success: function(data)
             {
                 $.ajax(
                     {
-                        url: '/user/' + login,
+                        url: '/user/' + username,
                         type: 'GET',
                         contentType : 'application/json',
-                        data: {'login': login},
+                        data: {
+                                'login': data.username,
+                               // 'role': data.role,
+                                'email': data.email,
+                                'firstName': data.firstName,
+                                'lastName': data.lastName
+                            },
                         success: function(data)
                         {
-                            location.href = 'http://localhost:8080/user/' + login;
+                            location.href = 'http://localhost:8080/user/' + username;
                         }
                     }
                 );
@@ -47,8 +53,8 @@ function showErrors(error) {
 
 function addErrorMessageToField(field, message) {
     switch (field) {
-        case 'login':
-            $('#login-err').text(message);
+        case 'username':
+            $('#username-err').text(message);
             break;
         case 'password':
             $('#password-err').text(message);
@@ -60,6 +66,6 @@ function addErrorMessageToField(field, message) {
 }
 
 function clearSpan() {
-    $('#login-err').text('');
+    $('#username-err').text('');
     $('#password-err').text('');
 }

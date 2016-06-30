@@ -5,73 +5,6 @@
     <title>Registration</title>
 </head>
 <body>
-<%--<div class="container">
-    <form class="form-horizontal">
-        <h2>Registration</h2>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Login:</label>
-            <div class="col-sm-7">
-                <input type=text class="form-control" id="login" placeholder="Enter your login">
-            </div>
-            <div>
-                <span style="color:red" id="login_span"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Password:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" id="password" placeholder="Enter your password">
-            </div>
-            <div>
-                <span style="color:red" id="password_span"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Email:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" id="email" placeholder="Enter your email">
-            </div>
-            <div>
-                <span style="color:red" id="email_span"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">First Name:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" id="firstName" placeholder="Enter your First Name">
-            </div>
-            <div>
-                <span style="color:red" id="firstName_span"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Last Name:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" id="lastName" placeholder="Enter your Last Name">
-            </div>
-            <div>
-                <span style="color:red" id="lastName_span"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Secret Code:</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" id="secretCode" placeholder="Enter your Secret Code if you mechanic">
-            </div>
-            <div>
-                <span style="color:red" id="secretCode_span"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-3">
-                <button type="button" id = "registration" class="btn btn-primary">Registration</button>
-            </div>
-            <div class="col-sm-offset-3 col-sm-3">
-                <button type="button" id = "cancel" class="btn btn-primary" onclick="location.href='/login'">Cancel</button>
-            </div>
-        </div>
-    </form>
-</div>--%>
 <br>
 <br>
 <br>
@@ -109,8 +42,8 @@
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="text" id="login" class="form-control input-sm" placeholder="Login">
-                                    <span style="color:red" id="login-span"></span>
+                                    <input type="text" id="username" class="form-control input-sm" placeholder="Login">
+                                    <span style="color:red" id="username-span"></span>
                                 </div>
                             </div>
 
@@ -148,7 +81,7 @@
 
     $("#cancel").click(function ()
     {
-        location.href='http://localhost:8080/login';
+        location.href='http://localhost:8080/authorization';
     });
 </script>
 </body>

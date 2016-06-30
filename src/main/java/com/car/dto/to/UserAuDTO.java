@@ -1,9 +1,9 @@
-package com.car.dto;
+package com.car.dto.to;
 
 public class UserAuDTO
 {
 
-    private String login;
+    private String username;
     private String password;
 
     public UserAuDTO()
@@ -11,20 +11,20 @@ public class UserAuDTO
 
     }
 
-    public UserAuDTO(String login, String password)
+    public UserAuDTO(String username, String password)
     {
-        this.login = login;
+        this.username = username;
         this.password = password;
     }
 
-    public String getLogin()
+    public String getUsername()
     {
-        return login;
+        return username;
     }
 
-    public void setLogin(String login)
+    public void setUsername(String username)
     {
-        this.login = login;
+        this.username = username;
     }
 
     public String getPassword()

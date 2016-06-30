@@ -1,10 +1,14 @@
 package com.car.config;
 
+import com.car.service.impl.UserDetailsServiceImpl;
+import com.car.service.impl.UsersServiceImpl;
+import com.car.service.interfaces.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -58,5 +62,6 @@ public class MainConfig extends WebMvcConfigurerAdapter
         b.setExceptionMappings(mappings);
         return b;
     }
+
 
 }

@@ -1,5 +1,5 @@
 function makeRegistration() {
-    var login = $('#login').val();
+    var username = $('#username').val();
     var password = $('#password').val();
     var email = $('#email').val();
     var firstName = $('#firstName').val();
@@ -12,7 +12,7 @@ function makeRegistration() {
         url: '/makeRegistration',
         data: JSON.stringify(
             {
-                'login':login,
+                'username':username,
                 'password':password,
                 'email':email,
                 'firstName':firstName,
@@ -23,9 +23,9 @@ function makeRegistration() {
         success: function(data, response) {
             clearSpan();
             if (response == 'success') {
-                alert('User with login ' + data.login + ' successfully registered.\n' +
+                alert('User with login ' + data.username + ' successfully registered.\n' +
                     'Click OK and log in using your username');
-                location.href = 'http://localhost:8080/login';
+                location.href = 'http://localhost:8080/authorization';
             } else {
                 $('#error').text('Unknown error!');
             }
@@ -48,8 +48,8 @@ function showErrors(error) {
 
 function addErrorMessageToField(field, message) {
     switch (field) {
-        case 'login':
-            $('#login-span').text(message);
+        case 'username':
+            $('#username-span').text(message);
             break;
         case 'password':
             $('#password-span').text(message);
@@ -73,7 +73,7 @@ function addErrorMessageToField(field, message) {
 }
 
 function clearSpan() {
-    $('#login-span').text('');
+    $('#username-span').text('');
     $('#password-span').text('');
     $('#email-span').text('');
     $('#first-name-span').text('');

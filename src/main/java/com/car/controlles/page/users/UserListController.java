@@ -1,4 +1,4 @@
-package com.car.controlles;
+package com.car.controlles.page.users;
 
 import org.springframework.stereotype.Controller;
 

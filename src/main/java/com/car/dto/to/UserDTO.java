@@ -1,9 +1,9 @@
-package com.car.dto;
+package com.car.dto.to;
 
 public class UserDTO
 {
 
-    private String login;
+    private String username;
     private String password;
     private String email;
     private String firstName;
@@ -15,9 +15,9 @@ public class UserDTO
 
     }
 
-    public UserDTO(String login, String password, String email, String firstName, String lastName, String secretCode)
+    public UserDTO(String username, String password, String email, String firstName, String lastName, String secretCode)
     {
-        this.login = login;
+        this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -25,14 +25,14 @@ public class UserDTO
         this.secretCode = secretCode;
     }
 
-    public String getLogin()
+    public String getUsername()
     {
-        return login;
+        return username;
     }
 
-    public void setLogin(String login)
+    public void setUsername(String username)
     {
-        this.login = login;
+        this.username = username;
     }
 
     public String getPassword()
@@ -85,15 +85,4 @@ public class UserDTO
         this.secretCode = secretCode;
     }
 
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", secretCode='" + secretCode + '\'' +
-                '}';
-    }
 }

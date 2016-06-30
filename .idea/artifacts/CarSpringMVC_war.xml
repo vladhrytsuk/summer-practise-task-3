@@ -3,6 +3,16 @@
     <output-path>$PROJECT_DIR$/out/artifacts/CarSpringMVC_war</output-path>
     <root id="archive" name="CarSpringMVC_war.war">
       <element id="artifact" artifact-name="CarSpringMVC:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:4.1.0.RELEASE" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:4.1.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.1.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:4.1.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:4.1.0.RELEASE" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

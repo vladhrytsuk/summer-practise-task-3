@@ -1,4 +1,4 @@
-package com.car.controlles;
+package com.car.controlles.errors;
 
 import com.car.service.exception.ErrorInfoDTO;
 import org.springframework.http.HttpStatus;

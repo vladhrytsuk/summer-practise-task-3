@@ -1,6 +1,7 @@
 package com.car.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -8,9 +9,9 @@ import java.util.List;
 public class Orders
 {
     @Id
-    @Column(name = "order_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long order_id;
+    @Column(name = "orderId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
 
     @Column(name = "breaking")
     private String breaking;
@@ -19,36 +20,36 @@ public class Orders
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users users;
+    @JoinColumn(name = "userId")
+    private Users usersOrder;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "orders_has_cars", joinColumns = {
-            @JoinColumn(name = "car_id") },
-            inverseJoinColumns = { @JoinColumn(name = "order_id") })
-    private List<Car> carList;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "orders_has_cars",
+            joinColumns = @JoinColumn(name = "carId"),
+            inverseJoinColumns = @JoinColumn(name = "orderId"))
+    private List<Car> carList = new ArrayList<>();
 
     public Orders()
     {
 
     }
 
-    public Orders(String breaking, String status, Users users, List<Car> carList)
+    public Orders(String breaking, String status, Users usersOrder, List<Car> carList)
     {
         this.breaking = breaking;
         this.status = status;
-        this.users = users;
+        this.usersOrder = usersOrder;
         this.carList = carList;
     }
 
-    public Long getOrder_id()
+    public Long getOrderId()
     {
-        return order_id;
+        return orderId;
     }
 
-    public void setOrder_id(Long order_id)
+    public void setOrderId(Long orderId)
     {
-        this.order_id = order_id;
+        this.orderId = orderId;
     }
 
     public String getBreaking()
@@ -71,14 +72,14 @@ public class Orders
         this.status = status;
     }
 
-    public Users getUsers()
+    public Users getUsersOrder()
     {
-        return users;
+        return usersOrder;
     }
 
-    public void setUsers(Users users)
+    public void setUsersOrder(Users usersOrder)
     {
-        this.users = users;
+        this.usersOrder = usersOrder;
     }
 
     public List<Car> getCarList()
@@ -89,17 +90,5 @@ public class Orders
     public void setCarList(List<Car> carList)
     {
         this.carList = carList;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "Orders{" +
-                "order_id=" + order_id +
-                ", breaking='" + breaking + '\'' +
-                ", status='" + status + '\'' +
-                ", users=" + users +
-                ", carList=" + carList +
-                '}';
     }
 }

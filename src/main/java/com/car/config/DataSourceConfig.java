@@ -3,11 +3,13 @@ package com.car.config;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -15,9 +17,9 @@ import java.util.Properties;
 @Configuration
 @EnableJpaRepositories(basePackages = "com.car.dao")
 @EnableTransactionManagement
+@Import({ SecurityConfig.class })
 public class DataSourceConfig
 {
-
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory()
     {
@@ -52,7 +54,7 @@ public class DataSourceConfig
     {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        //properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.show_sql", "true");
         return properties;
     }

@@ -1,4 +1,4 @@
-package com.car.dto;
+package com.car.dto.to;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;

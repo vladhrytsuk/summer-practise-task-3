@@ -1,9 +1,10 @@
-package com.car.controlles;
+package com.car.controlles.page.cars;
 
-import com.car.dto.CarDTO;
+import com.car.dto.factory.interfaces.FactoryDTO;
 import com.car.entity.Car;
+import com.car.entity.Users;
 import com.car.service.interfaces.CarService;
-import com.car.service.interfaces.RolesService;
+import com.car.service.interfaces.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,12 @@ public class MainController
     @Autowired
     private CarService carService;
 
+    @Autowired
+    private UsersService usersService;
+
+    @Autowired
+    private FactoryDTO factoryDTO;
+
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -33,11 +40,11 @@ public class MainController
     }
 
     @ResponseBody
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public ModelAndView List()
     {
         logger.debug("LIST controller");
-        return new ModelAndView("list");
+        return new ModelAndView("user/addCar");
     }
 
     @ResponseBody
@@ -45,28 +52,28 @@ public class MainController
     public List<Car> Show()
     {
         logger.debug("SHOW all controller");
-        return carService.findAll();
+        return factoryDTO.CarOutListDTO(carService.findAll());
     }
 
     @ResponseBody
-    @RequestMapping(value = "/list/add", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public Car saveCar(@RequestBody @Valid CarDTO carDTO)
+    @RequestMapping(value = "/cars/add", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public Car saveCar(@RequestBody @Valid Car car)
     {
+        Users users = usersService.getAllUsers().get(0);
         logger.debug("ADD controller");
-        return carService.saveCar(carDTO);
+        return carService.addCar(car, users);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/list/delete", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public Car deleteCar(@RequestBody int car_id)
+    @RequestMapping(value = "/cars/delete", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public Car deleteCar(@RequestBody Long carId)
     {
-        Long obCar_id = new Long(car_id);
         logger.debug("DELETE controller");
-        return carService.deleteCar(obCar_id);
+        return carService.deleteCar(carId);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/list/edit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/cars/edit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public Car editCar(@RequestBody @Valid Car car)
     {
         logger.debug("EDIT controller");
