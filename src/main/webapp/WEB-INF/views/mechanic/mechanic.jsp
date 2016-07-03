@@ -147,14 +147,14 @@
     </div>
 
     <form action="#" method="get">
-        Пользователь:<br />
+        Пользователь:<br>
         <select name="userId" id="userId" class="StyleSelectBox">
             <option value="0">- выберите пользователя -</option>
-        </select></td><td>
-        Машины:<br />
+        </select><br>
+        Машины:<br>
         <select name="carId" id="carId" disabled="disabled" class="StyleSelectBox">
             <option value="0">- выберите машину -</option>
-        </select></td><td>
+        </select>
     </form>
 
 </div>

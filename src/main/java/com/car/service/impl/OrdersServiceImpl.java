@@ -25,7 +25,7 @@ public class OrdersServiceImpl implements OrdersService
     private OrdersDAO ordersDAO;
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @Autowired
     private UsersDAO usersDAO;
@@ -91,7 +91,8 @@ public class OrdersServiceImpl implements OrdersService
     @Override
     public List<Orders> getOrdersUsers(Long userId)
     {
-        return em.createQuery("SELECT o FROM orders o WHERE o.userId = :userId", Orders.class)
+        return entityManager.createQuery(
+                "select o from orders o where o.usersOrder.userId = :userId", Orders.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }

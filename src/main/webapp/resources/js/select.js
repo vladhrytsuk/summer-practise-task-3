@@ -13,6 +13,9 @@ $(document).ready(function () {
             $(data).each(function() {
                 options += '<option value="' + $(this).attr('userId') + '">' + $(this).attr(JSON.parse(data.username)) + '</option>';
             });
+
+            $('#userId').html('<option value="0">- выберите пользователя -</option>' + options);
+            $('#userId').attr('disabled', false);
         },
         error: function(data)
         {

@@ -30,7 +30,7 @@ public class CarServiceImpl implements CarService
     private FactoryDTO factoryDTO;
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @Transactional
     @Override
@@ -88,13 +88,14 @@ public class CarServiceImpl implements CarService
         return factoryDTO.CarOutDTO(carFind);
     }
 
-    @Transactional (readOnly = true)
+    /*@Transactional (readOnly = true)*/
     @Override
     public List<Car> getCarUser(Long userId)
     {
-        return em.createQuery("SELECT c FROM cars c WHERE c.userId = :userId", Car.class)
-        .setParameter("userId", userId)
-        .getResultList();
+        return entityManager.createQuery(
+                "select c from cars c where c.usersCar.userId = :userId", Car.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 
     @Transactional(readOnly = true)

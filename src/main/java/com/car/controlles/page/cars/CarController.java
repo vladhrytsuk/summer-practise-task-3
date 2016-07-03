@@ -2,11 +2,15 @@ package com.car.controlles.page.cars;
 
 import com.car.dto.factory.interfaces.FactoryDTO;
 import com.car.entity.Car;
+import com.car.entity.Users;
 import com.car.service.exception.EntityNotFound;
 import com.car.service.interfaces.CarService;
+import com.car.service.interfaces.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +23,9 @@ public class CarController
 {
     @Autowired
     private CarService carService;
+
+    @Autowired
+    private UsersService usersService;
 
     @Autowired
     private FactoryDTO factoryDTO;
@@ -37,8 +44,11 @@ public class CarController
     @RequestMapping(value = "/showlist", method = RequestMethod.GET, produces = "application/json")
     public List<Car> Show()
     {
+        UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users users = usersService.findByUsername(userDetail.getUsername());
         logger.debug("SHOW all controller");
-        return factoryDTO.CarOutListDTO(carService.findAll());
+        return factoryDTO.CarOutListDTO(carService.getCarUser(users.getUserId()));
+        //return factoryDTO.CarOutListDTO(carService.findAll());
     }
 
     @ResponseBody
