@@ -1,12 +1,15 @@
 package com.car.service.impl;
 
 import com.car.dao.interfaces.OrdersDAO;
+import com.car.dao.interfaces.UsersDAO;
 import com.car.dto.factory.interfaces.FactoryDTO;
 import com.car.entity.Orders;
 import com.car.entity.Users;
+import com.car.service.exception.EntityNotFound;
 import com.car.service.interfaces.OrdersService;
-import com.car.service.interfaces.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,23 +25,23 @@ public class OrdersServiceImpl implements OrdersService
     private OrdersDAO ordersDAO;
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     @Autowired
-    private UsersService usersService;
+    private UsersDAO usersDAO;
 
     @Autowired
     private FactoryDTO factoryDTO;
 
     @Transactional
     @Override
-    public Orders addOrders(Orders orders, Users user)
+    public Orders addOrders(Orders orders)
     {
-        Orders orderAdd = null;
-        Users usersOrder = usersService.findUserById(user.getUserId());
+        Orders orderAdd;
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users usersOrder = usersDAO.findByUsername(userDetails.getUsername());
         orders.setUsersOrder(usersOrder);
         orderAdd = ordersDAO.save(orders);
-
         return factoryDTO.OrdersOutDTO(orderAdd);
     }
 
@@ -47,7 +50,11 @@ public class OrdersServiceImpl implements OrdersService
     public Orders deleteOrders(Long orderId)
     {
         Orders deletedOrder = findById(orderId);
-        ordersDAO.delete(deletedOrder);
+        if (deletedOrder == null) {
+            throw new EntityNotFound();
+        } else {
+            ordersDAO.delete(deletedOrder);
+        }
         return factoryDTO.OrdersOutDTO(deletedOrder);
     }
 
@@ -56,8 +63,12 @@ public class OrdersServiceImpl implements OrdersService
     public Orders updateOrders(Orders orders)
     {
         Orders updatedOrder = findById(orders.getOrderId());
-        updatedOrder.setBreaking(orders.getBreaking());
-        updatedOrder.setStatus(orders.getStatus());
+        if (updatedOrder == null) {
+            throw new EntityNotFound();
+        } else {
+            updatedOrder.setBreaking(orders.getBreaking());
+            updatedOrder.setStatus(orders.getStatus());
+        }
         return factoryDTO.OrdersOutDTO(updatedOrder);
     }
 
@@ -81,7 +92,7 @@ public class OrdersServiceImpl implements OrdersService
     public List<Orders> getOrdersUsers(Long userId)
     {
         return em.createQuery("SELECT o FROM orders o WHERE o.userId = :userId", Orders.class)
-                .setParameter("userId", 1)
+                .setParameter("userId", userId)
                 .getResultList();
     }
 

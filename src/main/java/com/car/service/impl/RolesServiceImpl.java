@@ -70,6 +70,12 @@ public class RolesServiceImpl implements RolesService
 
     @Transactional(readOnly = true)
     @Override
+    public Roles findByRole(String role) {
+        return rolesDAO.findByRole(role);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public Roles findById(Long roleId)
     {
         return rolesDAO.findOne(roleId);

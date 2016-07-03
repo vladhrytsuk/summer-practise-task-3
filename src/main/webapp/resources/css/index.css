@@ -1,0 +1,27 @@
+body {
+    padding-top: 200px;
+    background-image: url(/resources/image/bg.jpg);
+    -webkit-font-kerning: auto;
+    -webkit-font-smoothing: antialiased;
+    -webkit-backface-visibility: visible !important;
+    position: relative;
+    overflow-x: hidden;
+    opacity: 0.6;
+    text-align: center;
+}
+
+div {
+    font-family: JosefinSans-Thin, serif;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+h2 {
+    font-size: 35px;
+}
+
+A {
+    text-decoration: none;
+}

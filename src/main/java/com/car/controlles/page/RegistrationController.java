@@ -31,7 +31,7 @@ public class RegistrationController
 
     @ResponseBody
     @RequestMapping(value = "/makeRegistration", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public Users makeRegistrationPage(@RequestBody UserDTO userDTO) throws ObjectAlreadyExistsException
+    public Users makeRegistrationPage(@RequestBody UserDTO userDTO)
     {
         logger.debug("makeRegistration controller");
         return usersService.addUser(factoryDTO.UsersOutDTO(userDTO), factoryDTO.CutSecretCode(userDTO));

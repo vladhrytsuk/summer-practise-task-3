@@ -4,16 +4,13 @@
 <head>
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<c:url value="/resources/fonts/"/>">
-    <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/addCar.css"/>">
     <title>User ${username}</title>
 </head>
 <body>
 <br><br><br>
 <div class="container">
     <div class="row">
-        <c:if test="${pageContext.request.userPrincipal.name != null}">
-            <h2 align="center">Dear ${pageContext.request.userPrincipal.name}, welcome to Client Page</h2>
-        </c:if>
         <div class="col-md-5 toppad pull-right col-md-offset-3">
             <a href="<c:url value="/"/>" >Home</a>
             <a href="<c:url value="/logout"/>" >Logout</a>
@@ -21,7 +18,9 @@
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title" align="center">User: ${username}</h3>
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <h3 class="panel-title" align="center">User: ${pageContext.request.userPrincipal.name}</h3>
+                    </c:if>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -48,8 +47,11 @@
                                 </tbody>
                             </table>
 
-                            <a href="/cars" class="btn btn-primary">Add Cars</a>
-                            <a href="#" class="btn btn-primary">Show orders</a>
+                            <div class="btn-group" align="center">
+                                <button class="btn btn-primary btn-sm open_window_add_car">Add Cars</button>
+                                <button class="btn btn-info btn-sm open_window_show_list">Show Cars</button>
+                                <button class="btn btn-info btn-sm open_window_show_order">Show Orders</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,6 +64,121 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/functional.js"/>"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.popup_add_car .close_popup, .overlay').click(function (){
+            $('.popup_add_car, .overlay').css({'opacity':'0', 'visibility':'hidden'});
+        });
+        $('.open_window_add_car').click(function (e){
+            $('.popup_add_car, .overlay').css({'opacity':'1', 'visibility':'visible'});
+            e.preventDefault();
+        });
+
+        $('.popup_show_list .close_popup, .overlay').click(function (){
+            $('.popup_show_list, .overlay').css({'opacity':'0', 'visibility':'hidden'});
+        });
+        $('.open_window_show_list').click(function (e){
+            $('.popup_show_list, .overlay').css({'opacity':'1', 'visibility':'visible'});
+            e.preventDefault();
+        });
+
+        $(window).load(function () {
+            show();
+        });
+
+        $("#addrow").click(function () {
+            addToTable();
+        });
+    });
+</script>
+
+<div class="overlay" title="Add Cars">Add Cars</div>
+    <div class="popup_add_car">
+        <div class="row centered-form">
+            <form role="form" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Mark</label>
+                        <div class="col-sm-7">
+                            <input type=text class="form-control input-sm" id="mark" placeholder="Enter the mark of car">
+                        </div>
+                        <div>
+                            <span style="color:red" id="vin_f"></span>
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Color</label>
+                        <div class="col-sm-7">
+                            <input type=text class="form-control input-sm" id="color" placeholder="Enter the color of car">
+                        </div>
+                        <div>
+                            <span style="color:red" id="mark_f"></span>
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Vin</label>
+                        <div class="col-sm-7">
+                            <input type=text class="form-control input-sm" id="vin" placeholder="Enter the vin of car">
+                        </div>
+                        <div>
+                            <span style="color:red" id="color_f"></span>
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Miles</label>
+                        <div class="col-sm-7">
+                            <input type=text class="form-control input-sm" id="miles" placeholder="Enter the miles of car">
+                        </div>
+                        <div>
+                            <span style="color:red" id="miles_f"></span>
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-3" align="right">
+                        <button type="button" id = "addrow" class="btn btn-info btn-primary">Add</button>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="close_popup" align="right">
+                            <button type="button" id = "closePopup" class="btn btn-info btn-success">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div class="overlay" title="Show lits of car">Show lits of car</div>
+    <div class="popup_show_list">
+        <div class = "center" id="addList">
+            <div class="container">
+                <table class="table table-bordered" id="CarDataTable">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="text-center" width="52">ID</th>
+                            <th class="text-center" width="262">Mark</th>
+                            <th class="text-center" width="216">Color</th>
+                            <th class="text-center" width="216">Vin</th>
+                            <th class="text-center" width="216">Miles</th>
+                            <th class="text-center" colspan="2" width="177">Action</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="close_popup" align="right">
+            <button type="button" class="btn btn-info btn-success">Close</button>
         </div>
     </div>
 </div>

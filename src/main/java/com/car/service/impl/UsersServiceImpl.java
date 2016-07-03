@@ -7,13 +7,11 @@ import com.car.entity.Car;
 import com.car.entity.Orders;
 import com.car.entity.Roles;
 import com.car.entity.Users;
+import com.car.service.exception.EntityNotFound;
 import com.car.service.exception.ObjectAlreadyExistsException;
-import com.car.service.exception.UserNotFound;
-import com.car.service.interfaces.RolesService;
 import com.car.service.interfaces.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +48,7 @@ public class UsersServiceImpl implements UsersService
 
     @Transactional
     @Override
-    public Users addUser(Users users, String secretCode) throws ObjectAlreadyExistsException
+    public Users addUser(Users users, String secretCode)
     {
         Roles role;
         Users userAdd;
@@ -72,11 +70,11 @@ public class UsersServiceImpl implements UsersService
 
     @Transactional
     @Override
-    public void deleteUser(Long userId) throws UserNotFound
+    public void deleteUser(Long userId)
     {
         Users deleteUser = findUserById(userId);
         if (deleteUser == null) {
-            throw new UserNotFound();
+            throw new EntityNotFound();
         } else {
             usersDAO.delete(deleteUser);
         }

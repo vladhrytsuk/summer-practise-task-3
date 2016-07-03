@@ -57,22 +57,6 @@ public class FactoryDTOImpl implements FactoryDTO
     }
 
     @Override
-    public Users UsersOutDTO(UserAuDTO userAuDTO)
-    {
-        Users userFind = usersService.findByUsername(userAuDTO.getUsername());
-        Users userOut = new Users();
-
-        userOut.setUsername(userAuDTO.getUsername());
-        userOut.setPassword(userAuDTO.getPassword());
-        userOut.setEmail(userFind.getEmail());
-        userOut.setFirstName(userFind.getFirstName());
-        userOut.setLastName(userFind.getLastName());
-        // userOut.setRoleList(userFind.getRoleList());
-
-        return userOut;
-    }
-
-    @Override
     public Users UsersOutDTO(Users users)
     {
         Users userOut = new Users();
@@ -82,6 +66,16 @@ public class FactoryDTOImpl implements FactoryDTO
         userOut.setEmail(users.getEmail());
         userOut.setFirstName(users.getFirstName());
         userOut.setLastName(users.getLastName());
+        return userOut;
+    }
+
+    @Override
+    public List<Users> UserOutListDTO(List<Users> users) {
+        List<Users> userOut = new ArrayList<>(users.size());
+        for(Users u: users)
+        {
+            userOut.add(new Users(u.getUsername(), u.getEmail(), u.getFirstName(), u.getLastName()));
+        }
         return userOut;
     }
 

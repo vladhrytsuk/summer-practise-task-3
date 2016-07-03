@@ -1,13 +1,12 @@
 package com.car.service.interfaces;
 
 import com.car.entity.Car;
-import com.car.entity.Users;
 
 import java.util.List;
 
 public interface CarService
 {
-    Car addCar(Car car, Users user);
+    Car addCar(Car car);
     Car deleteCar(Long carId);
     Car updateCar(Car car);
     Car findById(Long carId);

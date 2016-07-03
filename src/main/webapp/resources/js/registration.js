@@ -7,9 +7,9 @@ function makeRegistration() {
     var secretCode = $('#secretCode').val();
 
     $.ajax( {
+        url: '/makeRegistration',
         type: 'POST',
         contentType: 'application/json',
-        url: '/makeRegistration',
         data: JSON.stringify(
             {
                 'username':username,

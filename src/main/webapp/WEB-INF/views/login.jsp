@@ -3,10 +3,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/registration.css"/>">
     <title>LOGIN</title>
 </head>
 <body>
-<div class="container">
+<%--<div class="container">
     <c:url value="/j_spring_security_check" var="loginUrl" />
     <form class="form-horizontal" action="${loginUrl}" method="post">
         <h2>Login in</h2>
@@ -49,12 +50,51 @@
                    value="${_csrf.token}" />
         </div>
     </form>
-<%--    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-3">
-            <button type="button" id = "registration" class="btn btn-primary">Registration</button>
+</div>--%>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 col-md-offset-4 top-padding">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title" align="center">Log in</h2>
+                </div>
+                <div class="panel-body">
+                    <c:url value="/j_spring_security_check" var="loginUrl"/>
+                    <form action="${loginUrl}" method="post">
+
+                        <c:if test="${param.error != null}">
+                            <div class="alert alert-danger">
+                                <p>Invalid username or password.</p>
+                            </div>
+                        </c:if>
+                        <c:if test="${param.logout != null}">
+                            <div class="alert alert-success">
+                                <p>You have been logged out successfully.</p>
+                            </div>
+                        </c:if>
+
+                        <div class="form-group">
+                            <input type="text" name="f_username" class="form-control" placeholder="Login">
+                            <span style="color:red" id="username_span"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="f_password" class="form-control" placeholder="Password">
+                            <span style="color:red" id="password_span"></span>
+                        </div>
+                        <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="button" id = "registration" class="btn btn-primary">Registration</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>--%>
+    </div>
 </div>
+
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 <script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>

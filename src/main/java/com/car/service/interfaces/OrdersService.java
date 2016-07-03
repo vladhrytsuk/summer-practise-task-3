@@ -1,13 +1,12 @@
 package com.car.service.interfaces;
 
 import com.car.entity.Orders;
-import com.car.entity.Users;
 
 import java.util.List;
 
 public interface OrdersService
 {
-    Orders addOrders(Orders orders, Users user);
+    Orders addOrders(Orders orders);
     Orders deleteOrders(Long orderId);
     Orders updateOrders(Orders orders);
     Orders getOrders(Long orderId);

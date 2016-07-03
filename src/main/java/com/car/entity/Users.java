@@ -65,6 +65,14 @@ public class Users /*implements UserDetails*/
         this.lastName = lastName;
     }
 
+    public Users(String username, String email, String firstName, String lastName)
+    {
+        this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Users(String username, String password, String email, String firstName, String lastName, List<Roles> roleList, List<Car> carList, List<Orders> ordersList)
     {
         this.username = username;

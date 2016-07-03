@@ -23,6 +23,9 @@ public class Orders
     @JoinColumn(name = "userId")
     private Users usersOrder;
 
+    @Column(name = "mechanicId")
+    private Long mechanicId;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "orders_has_cars",
             joinColumns = @JoinColumn(name = "carId"),
@@ -90,5 +93,15 @@ public class Orders
     public void setCarList(List<Car> carList)
     {
         this.carList = carList;
+    }
+
+    public Long getMechanicId()
+    {
+        return mechanicId;
+    }
+
+    public void setMechanicId(Long mechanicId)
+    {
+        this.mechanicId = mechanicId;
     }
 }

@@ -86,6 +86,7 @@ function EditToTable(edit)
 function SaveRow(tableID, data)
 {
     var saveRow = document.getElementById(tableID).insertRow(byfIndex);
+    saveRow.className = "text-center";
 
     addCol(saveRow, 0, data.carId);
     addCol(saveRow, 1, data.mark);
@@ -93,7 +94,7 @@ function SaveRow(tableID, data)
     addCol(saveRow, 3, data.vin);
     addCol(saveRow, 4, data.miles);
     addCol(saveRow, 5, 'edit');
-    addCol(saveRow, 5, 'delete');
+    addCol(saveRow, 6, 'delete');
 
     document.getElementById(tableID).deleteRow(byfIndex + 1);
 }
@@ -110,8 +111,8 @@ function AddRow(tableID, data)
     addCol(newRow, 2, data.color);
     addCol(newRow, 3, data.vin);
     addCol(newRow, 4, data.miles);
-    addCol(newRow, 5, 'edit');
     addCol(newRow, 5, 'delete');
+    addCol(newRow, 6, 'edit');
 }
 
 /*Метод добавление столбца*/
@@ -128,14 +129,16 @@ function addCol(newRow, columnNum, value)
         if (x == true)
         {
             var index = this.parentNode.parentNode.rowIndex;
-            var idCar = cararray[index - 1].carId;
+          /* var idCar = cararray[index - 1].carId;*/
             $.ajax(
                 {
                     url: '/cars/delete',
                     type: 'POST',
                     contentType : 'application/json',
-                    data: idCar,
-                    success: function(data)
+                    /*data: JSON.stringify({'carId': cararray[index - 1].carId}),*/
+                    data: JSON.stringify(cararray[index - 1].carId),
+                    dataType: 'json',
+                    success: function()
                     {
                             DeleteRow('CarDataTable', index);
                             alert('Удаление успешно!\n ID: ' + cararray[index - 1].carId);
@@ -143,7 +146,7 @@ function addCol(newRow, columnNum, value)
                     },
                     error: function(data)
                     {
-                            alert('Ошибка на сервере!');
+                            alert('Ошибка на сервере!\n ОШИБКА: ' + data.responseText);
                     }
                 });
         }
@@ -198,8 +201,8 @@ function EditRow(tableID, index, byf)
     editCol(oldRow, 2, EditInputTextCOLOR);
     editCol(oldRow, 3, EditInputTextVIN);
     editCol(oldRow, 4, EditInputTextMILES);
-    editCol(oldRow, 5, 'save');
     editCol(oldRow, 5, 'cancel');
+    editCol(oldRow, 6, 'save');
 
     var tableElem = document.getElementById(tableID);
     tableElem.deleteRow(index + 1);
@@ -234,14 +237,15 @@ function editCol(oldRow, columnNum, value)
     CancelBotton.addEventListener('click', function()
     {
         var cancleRow = document.getElementById('CarDataTable').insertRow(byfIndex);
+        cancleRow.className = "text-center";
 
         addCol(cancleRow, 0, byf.carId);
         addCol(cancleRow, 1, byf.mark);
         addCol(cancleRow, 2, byf.color);
         addCol(cancleRow, 3, byf.vin);
         addCol(cancleRow, 4, byf.miles);
-        addCol(cancleRow, 5, 'edit');
         addCol(cancleRow, 5, 'delete');
+        addCol(cancleRow, 6, 'edit');
 
         document.getElementById('CarDataTable').deleteRow(byfIndex + 1);
 

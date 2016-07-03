@@ -1,12 +1,15 @@
 package com.car.service.impl;
 
+import com.car.dao.interfaces.UsersDAO;
 import com.car.dto.factory.interfaces.FactoryDTO;
 import com.car.entity.Car;
 import com.car.dao.interfaces.CarDAO;
 import com.car.entity.Users;
+import com.car.service.exception.EntityNotFound;
 import com.car.service.interfaces.CarService;
-import com.car.service.interfaces.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,23 +24,23 @@ public class CarServiceImpl implements CarService
     private CarDAO carDAO;
 
     @Autowired
-    private UsersService usersService;
+    private UsersDAO usersDAO;
 
     @Autowired
     private FactoryDTO factoryDTO;
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     @Transactional
     @Override
-    public Car addCar(Car car, Users user)
+    public Car addCar(Car car)
     {
-        Car carAdd = null;
-        Users usersCar = usersService.findUserById(user.getUserId());
+        Car carAdd;
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users usersCar = usersDAO.findByUsername(userDetails.getUsername());
         car.setUsersCar(usersCar);
         carAdd = carDAO.save(car);
-
         return factoryDTO.CarOutDTO(carAdd);
     }
 
@@ -46,7 +49,11 @@ public class CarServiceImpl implements CarService
     public Car deleteCar(Long carId)
     {
         Car deletedCar = findById(carId);
-        carDAO.delete(deletedCar);
+        if (deletedCar == null) {
+            throw new EntityNotFound();
+        } else  {
+            carDAO.delete(deletedCar);
+        }
         return factoryDTO.CarOutDTO(deletedCar);
     }
 
@@ -55,10 +62,14 @@ public class CarServiceImpl implements CarService
     public Car updateCar(Car car)
     {
         Car updatedCar = findById(car.getCarId());
-        updatedCar.setMark(car.getMark());
-        updatedCar.setColor(car.getColor());
-        updatedCar.setVin(car.getVin());
-        updatedCar.setMiles(car.getMiles());
+        if (updatedCar == null) {
+            throw new EntityNotFound();
+        } else {
+            updatedCar.setMark(car.getMark());
+            updatedCar.setColor(car.getColor());
+            updatedCar.setVin(car.getVin());
+            updatedCar.setMiles(car.getMiles());
+        }
         return factoryDTO.CarOutDTO(updatedCar);
     }
 
@@ -82,7 +93,7 @@ public class CarServiceImpl implements CarService
     public List<Car> getCarUser(Long userId)
     {
         return em.createQuery("SELECT c FROM cars c WHERE c.userId = :userId", Car.class)
-        .setParameter("userId", 1)
+        .setParameter("userId", userId)
         .getResultList();
     }
 
