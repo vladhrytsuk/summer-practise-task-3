@@ -1,5 +1,8 @@
 package com.car.controlles.page.orders;
 
+import com.car.dto.factory.interfaces.FactoryDTO;
+import com.car.dto.to.OrderDTO;
+import com.car.dto.to.OrderOutDTO;
 import com.car.entity.Orders;
 import com.car.service.interfaces.OrdersService;
 import com.car.service.interfaces.UsersService;
@@ -24,6 +27,9 @@ public class OrdersController
     @Autowired
     private OrdersService ordersService;
 
+    @Autowired
+    private FactoryDTO factoryDTO;
+
     private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
 
     @ResponseBody
@@ -36,18 +42,18 @@ public class OrdersController
 
     @ResponseBody
     @RequestMapping(value = "/order/add", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public Orders saveOrders(@RequestBody @Valid Orders orders)
+    public OrderOutDTO saveOrders(@RequestBody OrderDTO orderDTO)
     {
         logger.debug("Order add controller");
-        return ordersService.addOrders(orders);
+        return ordersService.addOrders(orderDTO);
     }
 
-    @ResponseBody
+    /*@ResponseBody
     @RequestMapping(value = "/getOrder", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public Orders getOrders(@RequestBody @Valid Orders orders)
     {
         logger.debug("Order add controller");
         return ordersService.addOrders(orders);
-    }
+    }*/
 
 }

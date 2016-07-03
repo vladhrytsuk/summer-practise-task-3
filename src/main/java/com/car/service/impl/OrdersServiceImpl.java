@@ -3,6 +3,8 @@ package com.car.service.impl;
 import com.car.dao.interfaces.OrdersDAO;
 import com.car.dao.interfaces.UsersDAO;
 import com.car.dto.factory.interfaces.FactoryDTO;
+import com.car.dto.to.OrderDTO;
+import com.car.dto.to.OrderOutDTO;
 import com.car.entity.Orders;
 import com.car.entity.Users;
 import com.car.service.exception.EntityNotFound;
@@ -35,14 +37,20 @@ public class OrdersServiceImpl implements OrdersService
 
     @Transactional
     @Override
-    public Orders addOrders(Orders orders)
+    public OrderOutDTO addOrders(OrderDTO orderDTO)
     {
-        Orders orderAdd;
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Users usersOrder = usersDAO.findByUsername(userDetails.getUsername());
+        Users usersMechanic = usersDAO.findByUsername(userDetails.getUsername());
+        Users usersOrder = usersDAO.findByUsername(orderDTO.getUsername());
+        Orders orderAdd;
+
+        Orders orders = factoryDTO.OrdersInDTO(orderDTO);
         orders.setUsersOrder(usersOrder);
+        orders.setMechanicId(usersMechanic.getUserId());
+
         orderAdd = ordersDAO.save(orders);
-        return factoryDTO.OrdersOutDTO(orderAdd);
+
+        return factoryDTO.OrdersOutDTO(factoryDTO.UsersInDTO(orderDTO), factoryDTO.CarInDTO(orderDTO), factoryDTO.OrdersOutDTO(orderAdd));
     }
 
     @Transactional

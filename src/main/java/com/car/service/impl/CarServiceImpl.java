@@ -8,6 +8,7 @@ import com.car.entity.Users;
 import com.car.service.exception.EntityNotFound;
 import com.car.service.interfaces.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.List;
 @Service
 public class CarServiceImpl implements CarService
 {
+    @Qualifier("carDAO")
     @Autowired
     private CarDAO carDAO;
 
@@ -88,12 +90,12 @@ public class CarServiceImpl implements CarService
         return factoryDTO.CarOutDTO(carFind);
     }
 
-    /*@Transactional (readOnly = true)*/
+    @Transactional (readOnly = true)
     @Override
-    public List<Car> getCarUser(Long userId)
+    public List<Car> getUserCars(Long userId)
     {
         return entityManager.createQuery(
-                "select c from cars c where c.usersCar.userId = :userId", Car.class)
+                "select c from Cars c where c.usersCar.userId = :userId", Car.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }

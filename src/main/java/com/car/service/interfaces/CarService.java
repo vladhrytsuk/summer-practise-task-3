@@ -11,6 +11,6 @@ public interface CarService
     Car updateCar(Car car);
     Car findById(Long carId);
     Car getCar(Long carId);
-    List<Car> getCarUser(Long userId);
+    List<Car> getUserCars(Long userId);
     List<Car> findAll();
 }

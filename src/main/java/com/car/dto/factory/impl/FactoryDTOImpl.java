@@ -2,12 +2,15 @@ package com.car.dto.factory.impl;
 
 
 import com.car.dto.factory.interfaces.FactoryDTO;
+import com.car.dto.to.OrderDTO;
+import com.car.dto.to.OrderOutDTO;
 import com.car.dto.to.UserAuDTO;
 import com.car.dto.to.UserDTO;
 import com.car.entity.Car;
 import com.car.entity.Orders;
 import com.car.entity.Roles;
 import com.car.entity.Users;
+import com.car.service.interfaces.CarService;
 import com.car.service.interfaces.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +25,9 @@ public class FactoryDTOImpl implements FactoryDTO
     @Autowired
     private UsersService usersService;
 
+    @Autowired
+    private CarService carService;
+
     @Override
     public Car CarOutDTO(Car car)
     {
@@ -35,12 +41,25 @@ public class FactoryDTOImpl implements FactoryDTO
     }
 
     @Override
+    public Car CarInDTO(OrderDTO orderDTO) {
+        return CarOutDTO(carService.findById(orderDTO.getCarId()));
+    }
+
+    @Override
     public Orders OrdersOutDTO(Orders orders)
     {
         Orders orderOut = new Orders();
         orderOut.setOrderId(orders.getOrderId());
         orderOut.setBreaking(orders.getBreaking());
         orderOut.setStatus(orders.getStatus());
+        return orderOut;
+    }
+
+    @Override
+    public Orders OrdersInDTO(OrderDTO orderDTO) {
+        Orders orderOut = new Orders();
+        orderOut.setBreaking(orderDTO.getBreaking());
+        orderOut.setStatus("Adopted");
         return orderOut;
     }
 
@@ -70,6 +89,11 @@ public class FactoryDTOImpl implements FactoryDTO
     }
 
     @Override
+    public Users UsersInDTO(OrderDTO orderDTO) {
+        return UsersOutDTO(usersService.findByUsername(orderDTO.getUsername()));
+    }
+
+    @Override
     public List<Users> UserOutListDTO(List<Users> users) {
         List<Users> userOut = new ArrayList<>(users.size());
         for(Users u: users)
@@ -92,6 +116,20 @@ public class FactoryDTOImpl implements FactoryDTO
     public String CutSecretCode(UserDTO userDTO)
     {
         return userDTO.getSecretCode();
+    }
+
+    @Override
+    public OrderOutDTO OrdersOutDTO(Users users, Car car, Orders orders) {
+        return new OrderOutDTO(
+                orders.getOrderId(),
+                users.getUsername(),
+                car.getMark(),
+                car.getColor(),
+                car.getVin(),
+                car.getMiles(),
+                orders.getBreaking(),
+                orders.getStatus()
+        );
     }
 
 

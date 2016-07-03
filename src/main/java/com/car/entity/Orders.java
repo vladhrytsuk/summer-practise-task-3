@@ -28,8 +28,8 @@ public class Orders
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "orders_has_cars",
-            joinColumns = @JoinColumn(name = "carId"),
-            inverseJoinColumns = @JoinColumn(name = "orderId"))
+            joinColumns = @JoinColumn(name = "orderId"),
+            inverseJoinColumns = @JoinColumn(name = "carId"))
     private List<Car> carList = new ArrayList<>();
 
     public Orders()

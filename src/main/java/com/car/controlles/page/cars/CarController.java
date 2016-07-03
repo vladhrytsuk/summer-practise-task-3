@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,6 +41,7 @@ public class CarController
         return new ModelAndView("user/addCar");
     }
 
+    @Transactional(readOnly = true)
     @ResponseBody
     @RequestMapping(value = "/showlist", method = RequestMethod.GET, produces = "application/json")
     public List<Car> Show()
@@ -47,7 +49,8 @@ public class CarController
         UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users users = usersService.findByUsername(userDetail.getUsername());
         logger.debug("SHOW all controller");
-        return factoryDTO.CarOutListDTO(carService.getCarUser(users.getUserId()));
+
+        return factoryDTO.CarOutListDTO(users.getCarList());
         //return factoryDTO.CarOutListDTO(carService.findAll());
     }
 
@@ -81,7 +84,7 @@ public class CarController
     public List<Car> getCar(@PathVariable ("userId") String userId)
     {
         logger.debug("EDIT controller");
-        return carService.getCarUser(Long.valueOf(userId));
+        return carService.getUserCars(Long.valueOf(userId));
     }
 
 }

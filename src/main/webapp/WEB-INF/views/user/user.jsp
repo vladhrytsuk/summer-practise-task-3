@@ -181,7 +181,6 @@
             <button type="button" class="btn btn-info btn-success">Close</button>
         </div>
     </div>
-</div>
 
 </body>
 </html>

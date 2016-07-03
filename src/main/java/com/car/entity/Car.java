@@ -39,10 +39,13 @@ public class Car
     @JoinColumn(name = "userId")
     private Users usersCar;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  /*  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "orders_has_cars", joinColumns = {
             @JoinColumn(name = "orderId") },
             inverseJoinColumns = { @JoinColumn(name = "carId") })
+    private List<Orders> ordersList = new ArrayList<>();*/
+
+    @ManyToMany(mappedBy = "carList", cascade = CascadeType.ALL)
     private List<Orders> ordersList = new ArrayList<>();
 
     public Car()

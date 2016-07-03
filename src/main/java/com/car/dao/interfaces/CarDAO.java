@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface CarDAO extends CrudRepository<Car, Long>
 {
-
+    /*@Query("select c from Cars c where c.usersCar.userId = ?1")
+    List<Car> getUserCars(Long userId);*/
 }
