@@ -1,6 +1,7 @@
 package com.car.dto.factory.impl;
 
 
+import com.car.dao.interfaces.UsersDAO;
 import com.car.dto.factory.interfaces.FactoryDTO;
 import com.car.dto.to.OrderDTO;
 import com.car.dto.to.OrderOutDTO;
@@ -13,6 +14,8 @@ import com.car.entity.Users;
 import com.car.service.interfaces.CarService;
 import com.car.service.interfaces.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -27,6 +30,9 @@ public class FactoryDTOImpl implements FactoryDTO
 
     @Autowired
     private CarService carService;
+
+    @Autowired
+    private UsersDAO usersDAO;
 
     @Override
     public Car CarOutDTO(Car car)
@@ -61,6 +67,57 @@ public class FactoryDTOImpl implements FactoryDTO
         orderOut.setBreaking(orderDTO.getBreaking());
         orderOut.setStatus("Adopted");
         return orderOut;
+    }
+
+    @Override
+    public List<OrderOutDTO> OrderOutListDTO(List<Orders> orders) {
+        List<OrderOutDTO> orderOutDTOList = new ArrayList<>(orders.size());
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users users = usersDAO.findByUsername(userDetails.getUsername());
+        if(userDetails.getAuthorities().toString().equals("[ROLE_MECHANIC]")){
+            for(Orders o: orders)
+            {
+                if (o.getMechanicId().equals(users.getUserId())) {
+                    List<Car> car = o.getCarList();
+                    for (Car c : car) {
+                        orderOutDTOList.add(new OrderOutDTO(
+                                o.getOrderId(),
+                                o.getUsersOrder().getUsername(),
+                                c.getMark(),
+                                c.getColor(),
+                                c.getVin(),
+                                c.getMiles(),
+                                o.getBreaking(),
+                                o.getStatus()
+                        ));
+                    }
+                }
+            }
+            return orderOutDTOList;
+        } else {
+            for(Orders o: orders)
+            {
+                Users mechanic = usersDAO.findOne(o.getMechanicId());
+                if (o.getUsersOrder().getUserId().equals(users.getUserId())) {
+                    List<Car> car = o.getCarList();
+                    for (Car c : car) {
+                        orderOutDTOList.add(new OrderOutDTO(
+                                o.getOrderId(),
+                                mechanic.getUsername(),
+                                c.getMark(),
+                                c.getColor(),
+                                c.getVin(),
+                                c.getMiles(),
+                                o.getBreaking(),
+                                o.getStatus()
+                        ));
+                    }
+                }
+            }
+            return orderOutDTOList;
+        }
+
+
     }
 
     @Override

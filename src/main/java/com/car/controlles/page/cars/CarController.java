@@ -46,12 +46,12 @@ public class CarController
     @RequestMapping(value = "/showlist", method = RequestMethod.GET, produces = "application/json")
     public List<Car> Show()
     {
-        UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        /*UserDetails userDetail = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users users = usersService.findByUsername(userDetail.getUsername());
         logger.debug("SHOW all controller");
 
-        return factoryDTO.CarOutListDTO(users.getCarList());
-        //return factoryDTO.CarOutListDTO(carService.findAll());
+        return factoryDTO.CarOutListDTO(users.getCarList());*/
+        return factoryDTO.CarOutListDTO(carService.findAll());
     }
 
     @ResponseBody

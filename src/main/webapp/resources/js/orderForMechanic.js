@@ -1,7 +1,7 @@
 orderArray = [];
 var successRowIndex = 0;
 
-/*function showOrder()
+function showOrder()
 {
     $.ajax({
         url: '/order',
@@ -16,7 +16,7 @@ var successRowIndex = 0;
             }
         }
     });
-}*/
+}
 
 function addToTable(){
 

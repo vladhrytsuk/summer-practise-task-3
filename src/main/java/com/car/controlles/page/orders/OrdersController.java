@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class OrdersController
@@ -33,12 +35,13 @@ public class OrdersController
     private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
 
     @ResponseBody
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
-    public ModelAndView List()
+    @RequestMapping(value = "/order", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+    public List<OrderOutDTO> orderList()
     {
-        logger.debug("LIST controller");
-        return new ModelAndView("user/ordes");
+        logger.debug("LIST order controller");
+        return ordersService.getOrdersList();
     }
+
 
     @ResponseBody
     @RequestMapping(value = "/order/add", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")

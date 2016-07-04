@@ -14,5 +14,6 @@ public interface OrdersService
     Orders getOrders(Long orderId);
     Orders findById(Long orderId);
     List<Orders> getOrdersUsers(Long userId);
+    List<OrderOutDTO> getOrdersList();
     List<Orders> findAll();
 }

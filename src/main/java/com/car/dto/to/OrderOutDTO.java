@@ -11,6 +11,9 @@ public class OrderOutDTO
     String breaking;
     String status;
 
+    public OrderOutDTO() {
+    }
+
     public OrderOutDTO(Long orderId, String username, String mark, String color, int vin, int miles, String breaking, String status) {
         this.orderId = orderId;
         this.username = username;

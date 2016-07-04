@@ -68,9 +68,10 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.min.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/functional.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/lib/bootstrap.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/lib/jquery-1.11.3.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/carForUser.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/orderForUser.js"/>"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('.popup_add_car .close_popup, .overlay').click(function (){
@@ -89,8 +90,17 @@
             e.preventDefault();
         });
 
+        $('.popup_show_order .close_popup, .overlay').click(function (){
+            $('.popup_show_order, .overlay').css({'opacity':'0', 'visibility':'hidden'});
+        });
+        $('.open_window_show_order').click(function (e){
+            $('.popup_show_order, .overlay').css({'opacity':'1', 'visibility':'visible'});
+            e.preventDefault();
+        });
+
         $(window).load(function () {
             show();
+            showOrder();
         });
 
         $("#addrow").click(function () {
@@ -181,6 +191,33 @@
             <button type="button" class="btn btn-info btn-success">Close</button>
         </div>
     </div>
+
+<div class="overlay" title="Show lits of car">Show lits of order</div>
+<div class="popup_show_order">
+    <div class = "center" id="addOrders">
+        <div class="container">
+            <table class="table table-bordered" id="OrderDataTable">
+                <thead>
+                <tr class="text-center">
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Mechanic</th>
+                    <th class="text-center">Mark</th>
+                    <th class="text-center">Color</th>
+                    <th class="text-center">Vin</th>
+                    <th class="text-center">Miles</th>
+                    <th class="text-center">Breaking</th>
+                    <th class="text-center">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="close_popup" align="right">
+        <button type="button" class="btn btn-info btn-success">Close</button>
+    </div>
+</div>
 
 </body>
 </html>

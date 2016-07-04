@@ -1,10 +1,12 @@
 package com.car.service.impl;
 
+import com.car.dao.interfaces.CarDAO;
 import com.car.dao.interfaces.OrdersDAO;
 import com.car.dao.interfaces.UsersDAO;
 import com.car.dto.factory.interfaces.FactoryDTO;
 import com.car.dto.to.OrderDTO;
 import com.car.dto.to.OrderOutDTO;
+import com.car.entity.Car;
 import com.car.entity.Orders;
 import com.car.entity.Users;
 import com.car.service.exception.EntityNotFound;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,20 +36,29 @@ public class OrdersServiceImpl implements OrdersService
     private UsersDAO usersDAO;
 
     @Autowired
+    private CarDAO carDAO;
+
+    @Autowired
     private FactoryDTO factoryDTO;
 
     @Transactional
     @Override
     public OrderOutDTO addOrders(OrderDTO orderDTO)
     {
+        Orders orderAdd;
+        Car carFind;
+        List<Car> car = new ArrayList<>();
+
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users usersMechanic = usersDAO.findByUsername(userDetails.getUsername());
         Users usersOrder = usersDAO.findByUsername(orderDTO.getUsername());
-        Orders orderAdd;
 
         Orders orders = factoryDTO.OrdersInDTO(orderDTO);
         orders.setUsersOrder(usersOrder);
         orders.setMechanicId(usersMechanic.getUserId());
+        carFind = carDAO.findOne(orderDTO.getCarId());
+        car.add(carFind);
+        orders.setCarList(car);
 
         orderAdd = ordersDAO.save(orders);
 
@@ -103,6 +115,12 @@ public class OrdersServiceImpl implements OrdersService
                 "select o from orders o where o.usersOrder.userId = :userId", Orders.class)
                 .setParameter("userId", userId)
                 .getResultList();
+    }
+
+    @Transactional (readOnly = true)
+    @Override
+    public List<OrderOutDTO> getOrdersList() {
+        return factoryDTO.OrderOutListDTO(findAll());
     }
 
     @Transactional (readOnly = true)

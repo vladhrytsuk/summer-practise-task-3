@@ -18,6 +18,7 @@ public interface FactoryDTO
 
     Orders OrdersOutDTO (Orders orders);
     Orders OrdersInDTO (OrderDTO orderDTO);
+    List<OrderOutDTO> OrderOutListDTO(List<Orders> orders);
     Roles RolesOutDTO (Roles roles);
 
     Users UsersOutDTO (UserDTO userDTO);

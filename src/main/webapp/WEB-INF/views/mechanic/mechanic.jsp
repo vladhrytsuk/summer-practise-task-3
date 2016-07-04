@@ -69,9 +69,9 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.11.3.min.js"/>" ></script>
-<script type="text/javascript" src="<c:url value="/resources/js/order.js"/>" ></script>
+<script type="text/javascript" src="<c:url value="/resources/js/lib/bootstrap.min.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/lib/jquery-1.11.3.min.js"/>" ></script>
+<script type="text/javascript" src="<c:url value="/resources/js/orderForMechanic.js"/>" ></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('.popup_add_order .close_popup, .overlay').click(function (){
@@ -90,9 +90,9 @@
             e.preventDefault();
         });
 
-      /*  $(window).load(function () {
+        $(window).load(function () {
             showOrder();
-        });*/
+        });
 
         $("#addOrder").click(function () {
             addToTable();
@@ -159,7 +159,7 @@
 </div>
 
 
-<div class="overlay" title="Show lits of car">Show lits of car</div>
+<div class="overlay" title="Show lits of order">Show lits of order</div>
 <div class="popup_show_order">
     <div class = "center" id="addOrders">
         <div class="container">
